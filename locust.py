@@ -3,7 +3,7 @@ import random
 
 
 class WebsiteUser(HttpUser):
-    wait_time = between(0, 1)
+    wait_time = between(0, 5)
     user_list = [
         "tsai_ingwen",
         "ladyflavor",

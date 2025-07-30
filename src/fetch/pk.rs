@@ -24,10 +24,13 @@ pub async fn fetch_ig_to_get_user_pk(username: &str) -> Result<String, String> {
         .send()
         .await
         .map_err(|_| "get pk err")?;
-    if res.status() != StatusCode::OK {
-        return Err("this user not exist".to_string());
-    }
+    let status = res.status();
     let text = res.text().await.map_err(|e| e.to_string())?;
+    if status == StatusCode::UNAUTHORIZED {
+        return Err("Please wait a few minutes before you try again.".to_string());
+    } else if status != StatusCode::OK {
+        return Err("this user not exist.".to_string());
+    }
     let user_pk = get_user_pk_by_response(text).await.map_err(|e| e)?;
     Ok(user_pk)
 }
