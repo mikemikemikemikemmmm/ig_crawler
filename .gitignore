@@ -1,0 +1,49 @@
+# === Rust ===
+/target/
+**/*.rs.bk
+
+# Rust package manager artifacts
+Cargo.lock
+.cargo/
+
+# Rust project backup
+*.rs.bk
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# PEP 582 (used by tools like PDM)
+__pypackages__/
+
+# IDE/editor settings (optional, but common)
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
