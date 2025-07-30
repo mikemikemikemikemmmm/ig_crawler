@@ -30,13 +30,18 @@ pub async fn get_ig_detail(
     if user_name.len() > 40 {
         return Err(HandlerError::new("username is too long"));
     }
-    let user_pk = fetch::fetch_ig_to_get_user_pk(&user_name)
+    let user_pk = fetch::pk::fetch_ig_to_get_user_pk(&user_name)
         .await
         .map_err(|e| HandlerError::new(e))?;
-    let user_data = fetch::fetch_ig_to_get_user_data(user_pk)
+    let user_data = fetch::user_data::fetch_ig_to_get_user_data(user_pk)
         .await
         .map_err(|e| {
             HandlerError::new(e)
         })?;
+    // let user_data: _struct::count::User = _struct::count::User {
+    //     follower_count: 1,
+    //     following_count: 2,
+    //     media_count: 2,
+    // };
     Ok(Json(user_data))
 }

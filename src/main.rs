@@ -3,7 +3,6 @@ mod config;
 mod csrf_token;
 mod fetch;
 mod handler;
-mod utils;
 use axum::{Router, routing::get};
 use tokio::sync::watch;
 
@@ -24,15 +23,15 @@ async fn main() -> Result<(), ()> {
 
     let app = Router::new().route("/{user_name}", get(handler::get_ig_detail));
     let host = format!("{}:{}", config::HOST_URL, config::HOST_PORT);
-    println!("{}",host);
+    println!("host:{}", host);
     let listener = tokio::net::TcpListener::bind(&host)
         .await
-        .map_err(|e| println!("listen err {}",e))?;
+        .map_err(|e| println!("listen err {}", e))?;
     println!("Listening on {}", host);
 
     axum::serve(listener, app)
         .with_graceful_shutdown(shutdown_signal)
         .await
-        .map_err(|_| println!("serve err"))?;
+        .map_err(|e| println!("serve err {}", e))?;
     Ok(())
 }
