@@ -23,18 +23,22 @@ impl IntoResponse for HandlerError {
         (axum::http::StatusCode::BAD_REQUEST, self.detail).into_response()
     }
 }
-
+fn print_hr() {
+    println!("-------------------------");
+}
 pub async fn get_ig_detail(
     Path(user_name): Path<String>,
 ) -> Result<Json<_struct::count::User>, HandlerError> {
     println!("req user name : {}", &user_name);
     if user_name.len() > 40 {
+        print_hr();
         return Err(HandlerError::new("username is too long"));
     }
     let user_pk = fetch::pk::fetch_ig_to_get_user_pk(&user_name)
         .await
         .map_err(|e| {
             println!("fetch user pk failed.");
+            print_hr();
             HandlerError::new(e)
         })?;
     println!("req user pk : {}", &user_pk);
@@ -42,11 +46,13 @@ pub async fn get_ig_detail(
         .await
         .map_err(|e| {
             println!("fetch user data failed.");
+            print_hr();
             HandlerError::new(e)
         })?;
     println!("req user media count : {}", &user_data.media_count);
     println!("req user follower_count : {}", &user_data.follower_count);
     println!("req user following_count : {}", &user_data.following_count);
+    print_hr();
     // let user_data: _struct::count::User = _struct::count::User {
     //     follower_count: 1,
     //     following_count: 2,

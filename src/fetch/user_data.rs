@@ -38,7 +38,6 @@ pub async fn get_user_data_by_response(
         .text()
         .await
         .map_err(|e|e.to_string())?;
-    print!("{:?}",body_text);
     let result_json: _struct::count::CountResponse =
         serde_json::from_str(&body_text).map_err(|e| e.to_string())?;
     Ok(result_json.data.user)

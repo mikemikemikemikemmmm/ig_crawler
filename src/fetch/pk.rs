@@ -31,7 +31,7 @@ pub async fn fetch_ig_to_get_user_pk(username: &str) -> Result<String, String> {
     } else if status != StatusCode::OK {
         return Err("this user not exist.".to_string());
     }
-    let user_pk = get_user_pk_by_response(text).await.map_err(|e| e)?;
+    let user_pk = get_user_pk_by_response(text).await.map_err(|_|"user not exist.".to_string())?;
     Ok(user_pk)
 }
 
