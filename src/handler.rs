@@ -37,17 +37,17 @@ pub async fn get_ig_detail(
     let user_pk = fetch::pk::fetch_ig_to_get_user_pk(&user_name)
         .await
         .map_err(|e| {
-            println!("fetch user pk failed.");
+            println!("fetch user pk failed, {}", e);
             print_hr();
-            HandlerError::new(e)
+            HandlerError::new("fetch user data failed.")
         })?;
     println!("req user pk : {}", &user_pk);
     let user_data = fetch::user_data::fetch_ig_to_get_user_data(user_pk)
         .await
         .map_err(|e| {
-            println!("fetch user data failed.");
+            println!("fetch user data failed, {}", e);
             print_hr();
-            HandlerError::new(e)
+            HandlerError::new("fetch user data failed.")
         })?;
     println!("req user media count : {}", &user_data.media_count);
     println!("req user follower_count : {}", &user_data.follower_count);

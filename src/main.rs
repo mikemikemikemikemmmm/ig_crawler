@@ -21,7 +21,7 @@ async fn main() -> Result<(), ()> {
         }
     };
 
-    let app = Router::new().route("/get_user_data/{user_name}", get(handler::get_ig_detail));
+    let app = Router::new().route("/{user_name}", get(handler::get_ig_detail));
     let host = format!("{}:{}", config::HOST_URL, config::HOST_PORT);
     println!("host:{}", host);
     let listener = tokio::net::TcpListener::bind(&host)
